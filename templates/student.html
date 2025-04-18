@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<p class="text-right">
+    Hello, {{ current_user.username }}!
+    <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-secondary">Logout</a>
+</p>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if not_found %}
+        <div class="alert alert-warning" role="alert">
+            No results found for your search.
+        </div>
+        <a href="{{ url_for('menu') }}" class="btn btn-link">&lt;- Return to Menu</a>
+    {% elif books %}
+        <div class="d-flex justify-content-between mb-4">
+            <a href="{{ url_for('menu') }}" class="btn btn-link">&lt;- Return to Menu</a>
+            <h2>Search Results:</h2>
+        </div>
+        <div class="list-group">
+            {% for book in books %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <h5 class="mb-1">{{ book[1] }}</h5>
+                    {% if book.borrow_status == 'success' %}
+                        <span class="badge badge-success">Borrowed</span>
+                    {% elif book.borrow_status == 'not_available' %}
+                        <span class="badge badge-danger">Not Available</span>
+                    {% elif book.borrow_status == 'already_borrowed' %}
+                        <span class="badge badge-danger">Already Borrowed</span>
+                    {% elif book.borrow_status == 'full' %}
+                        <span class="badge badge-danger">Borrow Limit Reached</span>
+                    {% else %}
+                        <a href="{{ url_for('menu', title=book[1], author=book[2]) }}" class="btn btn-sm btn-primary">Borrow</a>
+                    {% endif %}
+                </div>
+                <p class="mb-1"><strong>Author:</strong> {{ book[2] }}</p>
+                <p class="mb-1"><strong>Total Copies:</strong> {{ book[3] }}</p>
+                <p class="mb-1"><strong>Available Copies:</strong> {{ book[4] }}</p>
+            </div>
+            {% if not loop.last %}
+            <hr class="my-0">
+            {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="text-center">Welcome to Ilibrary system</h1>
+                <form method="GET" action="">
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search for the title" aria-label="Search" name="search" value="{{ search_query }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-block" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="mt-5">
+                    <h5 class="text-center">Or choose an option:</h5>
+                    <div class="list-group mt-3">
+                        <a href="{{ url_for('borrow') }}" class="list-group-item list-group-item-action">Borrow Books</a>
+                        <a href="{{ url_for('return_') }}" class="list-group-item list-group-item-action">Return Books</a>
+                        <a href="{{ url_for('change_password') }}" class="list-group-item list-group-item-action">Change Password</a>
+                        <a href="{{ url_for('information') }}" class="list-group-item list-group-item-action">View Personal Information</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 col-md-offset-3">
+            <!-- Return Link -->
+            <a href="{{ url_for('student_list') }}" class="btn btn-link btn-sm mb-3">&lt;- Return to Student List</a>
+
+            <!-- Success Message or Form -->
+            {% if success %}
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Success!</h4>
+                    <p>Student added successfully.</p>
+                </div>
+            {% else %}
+                <!-- Form -->
+                <form method="post" class="needs-validation" novalidate>
+                    {{ form.csrf_token }}
+                    
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="{{ form.name.id }}">{{ form.name.label }}</label>
+                        {{ form.name(class="form-control", id=form.name.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.name.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="{{ form.password.id }}">{{ form.password.label }}</label>
+                        {{ form.password(class="form-control", id=form.password.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.password.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Password Repeat Field -->
+                    <div class="form-group">
+                        <label for="{{ form.password_repeat.id }}">{{ form.password_repeat.label }}</label>
+                        {{ form.password_repeat(class="form-control", id=form.password_repeat.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.password_repeat.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                        <label for="{{ form.gender.id }}">{{ form.gender.label }}</label>
+                        {{ form.gender(class="form-control", id=form.gender.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.gender.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Telephone Field -->
+                    <div class="form-group">
+                        <label for="{{ form.telephone.id }}">{{ form.telephone.label }}</label>
+                        {{ form.telephone(class="form-control", id=form.telephone.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.telephone.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Major Field -->
+                    <div class="form-group">
+                        <label for="{{ form.major.id }}">{{ form.major.label }}</label>
+                        {{ form.major(class="form-control", id=form.major.id) }}
+                        <div class="invalid-feedback">
+                            {% for message in form.major.errors %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

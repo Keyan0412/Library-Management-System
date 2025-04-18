@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<p class="text-right">
+    Hello, {{ current_user.username }}!
+    <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-secondary">Logout</a>
+</p>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <a href="{{ url_for('menu') }}" class="btn btn-link">&lt;- Return to Menu</a>
+        <h2>Which book would you like to borrow?</h2>
+    </div>
+    <div class="list-group">
+        {% for book in books %}
+        <div class="list-group-item">
+            <h5 class="mb-1">{{ book[1] }}</h5>
+            <p class="mb-1">Author: {{ book[2] }}</p>
+            <p class="mb-1">Total Copies: {{ book[3] }}</p>
+            <p class="mb-1">Available Copies: {{ book[4] }}</p>
+            {% if message[0] == book[1] and message[1] == book[2] %}
+                <span class="text-success">Borrow successfully</span><br>
+            {% elif error[0] == book[1] and error[1] == book[2] %}
+                <span class="text-danger">Not available</span><br>
+            {% elif borrowed[0] == book[1] and borrowed[1] == book[2] %}
+                <span class="text-danger">You have already borrowed this book!</span><br>
+            {% elif full[0] == book[1] and full[1] == book[2] %}
+                <span class="text-danger">You cannot borrow more books! You must return one first!</span><br>
+            {% endif %}
+            <a href="{{ url_for('borrow', title=book[1], author=book[2]) }}" class="btn btn-sm btn-primary">Borrow</a>
+        </div>
+        {% if not loop.last %}
+        <hr class="my-0">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

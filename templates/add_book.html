@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('book_list') }}" class="btn btn-secondary mb-4">&lt;- Return to Book List</a>
+    
+    {% if success %}
+        <div class="alert alert-success" role="alert">
+            <h1 class="alert-heading">Book Added Successfully!</h1>
+        </div>
+    {% else %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Add a New Book</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {{ form.csrf_token }}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.title.id }}">{{ form.title.label }}</label>
+                        {{ form.title(class="form-control", id=form.title.id) }}
+                        {% for message in form.title.errors %}
+                            <small class="text-danger">{{ message }}</small>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.author.id }}">{{ form.author.label }}</label>
+                        {{ form.author(class="form-control", id=form.author.id) }}
+                        {% for message in form.author.errors %}
+                            <small class="text-danger">{{ message }}</small>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.total_copies.id }}">{{ form.total_copies.label }}</label>
+                        {{ form.total_copies(class="form-control", id=form.total_copies.id) }}
+                        {% for message in form.total_copies.errors %}
+                            <small class="text-danger">{{ message }}</small>
+                        {% endfor %}
+                    </div>
+                    
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

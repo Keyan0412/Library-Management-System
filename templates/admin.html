@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<p class="text-right my-2">
+    Hello, {{ current_user.username }}! 
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary btn-sm">Logout</a>
+</p>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center col-md-offset-3">
+            <h2>What do you want to do?</h2>
+            <div class="list-group mt-3">
+                <a href="{{ url_for('record') }}" class="list-group-item list-group-item-action">View Records</a>
+                <a href="{{ url_for('student_list') }}" class="list-group-item list-group-item-action">View Student Information</a>
+                <a href="{{ url_for('book_list') }}" class="list-group-item list-group-item-action">View Book Information</a>
+                <a href="{{ url_for('set_password') }}" class="list-group-item list-group-item-action">Set Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

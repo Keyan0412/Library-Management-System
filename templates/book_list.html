@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Return Link -->
+            <a href="{{ url_for('menu', admin=1) }}" class="btn btn-link btn-sm mb-3 float-left">&lt;- Return to Menu</a>
+            
+            <!-- Clear Floats -->
+            <div class="clearfix"></div>
+
+            <!-- Books Table -->
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Total Copies</th>
+                        <th scope="col">Available Copies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book[0] }}</td>
+                        <td>{{ book[1] }}</td>
+                        <td>{{ book[2] }}</td>
+                        <td>{{ book[3] }}</td>
+                        <td>{{ book[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-end mt-3">
+                <a href="{{ url_for('add_book') }}" class="btn btn-success btn-sm mr-2">Add Book</a>
+                <a href="{{ url_for('delete_book') }}" class="btn btn-danger btn-sm">Delete Book</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

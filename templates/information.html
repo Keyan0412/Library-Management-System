@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header_right %}
+<p class="text-right">
+    Hello, {{ current_user.username }}!
+    <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-secondary">Logout</a>
+</p>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ url_for('menu') }}" class="btn btn-link text-decoration-none">&lt;- Return to Menu</a>
+        <h2>User Profile</h2>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            User Information
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ name }}</h5>
+            <p class="card-text"><strong>ID:</strong> {{ id }}</p>
+            <p class="card-text"><strong>Gender:</strong> {{ gender }}</p>
+            <p class="card-text"><strong>Telephone:</strong> {{ telephone }}</p>
+            <p class="card-text"><strong>Major:</strong> {{ major }}</p>
+            <p class="card-text"><strong>Number of Books Borrowed:</strong> {{ borrow_count }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

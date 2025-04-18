@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('book_list') }}" class="btn btn-secondary mb-4">&lt;- Return to Book List</a>
+    
+    <h1 class="mb-4">Which Book Do You Want to Delete?</h1>
+    
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Total Copies</th>
+                <th scope="col">Available Copies</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] }}</td>
+                <td><a href="{{ url_for('delete_book', title=book[1], author=book[2]) }}" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% if not_return[0] == book[0] and not_return[1] == book[1] %}
+                <tr class="table-danger">
+                    <td colspan="5" class="text-center">
+                        <small class="text-white">The book has not been returned!</small>
+                    </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

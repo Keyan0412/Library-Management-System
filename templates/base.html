@@ -1,0 +1,70 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    .fixed-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: #333; 
+        color: white; 
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        padding: 0.5rem 1rem; 
+        border-bottom: 1px solid #495057; 
+    }
+    .header-left h1 {
+        font-size: 3rem;
+        display: flex;
+        align-items: center;
+    }
+    .header-right p {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+    }
+    .main-content {
+        margin-top: 60px; 
+        margin-bottom: 60px; 
+        padding: 20px; 
+        display: flex;           
+        justify-content: center; 
+    }
+    .fixed-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: #f8f9fa; 
+        color: #343a40;
+        padding: 10px 0;
+        text-align: center; 
+        border-top: 1px solid #e3e6f0; 
+    }
+    .error {
+    color:crimson
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<header class="fixed-header">
+    <div class="header-left">
+        <h1>Ilibrary</h1>
+    </div>
+    <div class="header-right">
+        {% block header_right %}<p>Hello!</p>{% endblock %}
+    </div>
+</header>
+
+<div class="main-content">
+    {% block content %}Main content{% endblock %}
+</div>
+
+<footer class="fixed-footer">
+    <p>&copy; 2024 Zheng Jiyan. All rights reserved.</p>
+</footer>
+{% endblock %}
